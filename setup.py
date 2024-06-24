@@ -20,7 +20,7 @@ from os import path
 #     sources = glob.glob(path.join(extensions_dir, "**", "*.cpp"))
 
 #     sources = [main_source] + sources
-#     extension = CppExtension
+#     # extension = CppExtension
 
 #     extra_compile_args = {"cxx": ["-O3"]}
 #     define_macros = []
@@ -60,5 +60,5 @@ setuptools.setup(
     # ext_modules=get_extensions(),
     classifiers=["Programming Language :: Python :: 3", "Operating System :: OS Independent"],
     # cmdclass={"build_ext": torch.utils.cpp_extension.BuildExtension},
-    packages=setuptools.find_namespace_packages(),
+    packages=['tracker'],
 )
