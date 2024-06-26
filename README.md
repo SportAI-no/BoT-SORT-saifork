@@ -1,5 +1,11 @@
 # BoT-SORT
 
+## Simple setup for naive BotSort
+- `pip install -r botsort_requirements.txt`
+  - If cython-bbox install fails, try `sudo apt install python3.11-dev` first (use your python version)
+- `pip install -e .`
+
+
 > [**BoT-SORT: Robust Associations Multi-Pedestrian Tracking**](https://arxiv.org/abs/2206.14651)
 > 
 > Nir Aharon, Roy Orfaig, Ben-Zion Bobrovsky
