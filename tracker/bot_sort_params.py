@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-
+import os
 
 @dataclass
 class BoTSORTParams:
@@ -17,3 +17,8 @@ class BoTSORTParams:
     fuse_score: bool = False
     cmc_method: str = "None"
     mot20: bool = False
+    # models for Re-ID can be dowloaded from 
+    # https://github.com/NirAharon/BoT-SORT/blob/main/fast_reid/MODEL_ZOO.md
+    fast_reid_config  = os.getenv('HOME')+r"/repos/sportai/botsort/fast_reid/configs/MOT17/sbs_S50.yml"
+    fast_reid_weights = os.getenv('HOME')+r"/repos/sportai/botsort/pretrained/mot17_sbs_S50.pth"
+    device = "gpu"

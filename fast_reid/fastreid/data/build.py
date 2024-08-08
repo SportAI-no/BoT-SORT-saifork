@@ -8,7 +8,11 @@ import logging
 import os
 
 import torch
-from torch._six import string_classes
+
+# torch._six is obsolete, but this workaround seems to work fine:
+#from torch._six import string_classes
+string_classes = str
+
 from collections.abc import Mapping
 
 from fast_reid.fastreid.config import configurable

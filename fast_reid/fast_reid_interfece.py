@@ -83,7 +83,25 @@ class FastReIDInterface:
         batch_patches = []
         patches = []
         for d in range(np.size(detections, 0)):
-            tlbr = detections[d, :4].astype(np.int_)
+            
+            # Original BotSort code obviosly has a bug here.
+            # To fix it, we need to convert the coordinates from relative to absolute.
+            # NB: top-bottom coordinates (from tlbr) are multiplied by W rather than H
+            # It is counter-intuitive, but consistent with code below tlbr[2] = min(W - 1, tlbr[2])
+
+            # Original code
+            # tlbr = detections[d, :4].astype(np.int_)
+
+            # Beginning of fix
+            import copy
+            tlbr = copy.copy(detections[d, :4])
+            tlbr[0] = tlbr[0] * W
+            tlbr[1] = tlbr[1] * H
+            tlbr[2] = tlbr[2] * W
+            tlbr[3] = tlbr[3] * H
+            tlbr = tlbr.astype(np.int_)
+            # End of fix
+
             tlbr[0] = max(0, tlbr[0])
             tlbr[1] = max(0, tlbr[1])
             tlbr[2] = min(W - 1, tlbr[2])
@@ -92,6 +110,9 @@ class FastReIDInterface:
 
             # the model expects RGB inputs
             patch = patch[:, :, ::-1]
+
+            # import sys
+            # if not 'ipykernel' in sys.modules: import IPython; IPython.embed()
 
             # Apply pre-processing to image.
             patch = cv2.resize(patch, tuple(self.cfg.INPUT.SIZE_TEST[::-1]), interpolation=cv2.INTER_LINEAR)
