@@ -34,6 +34,30 @@ def _indices_to_matches(cost_matrix, indices, thresh):
 
     return matches, unmatched_a, unmatched_b
 
+# It is difficult to install lap. Probably "pip install lapx" solves the problem.
+# But alternatively, we can use the following code that does not require lap at all
+# (NB: it was not tested)
+# from scipy.optimize import linear_sum_assignment
+# def linear_assignment_WITHOUT_LAP(cost_matrix, thresh):
+#     if cost_matrix.size == 0:
+#         return np.empty((0, 2), dtype=int), tuple(range(cost_matrix.shape[0])), tuple(range(cost_matrix.shape[1]))
+
+#     row_ind, col_ind = linear_sum_assignment(cost_matrix)
+
+#     matches = []
+#     unmatched_a = []
+#     unmatched_b = []
+
+#     for i, j in zip(row_ind, col_ind):
+#         if cost_matrix[i, j] <= thresh:
+#             matches.append([i, j])
+#         else:
+#             unmatched_a.append(i)
+#             unmatched_b.append(j)
+
+#     matches = np.asarray(matches)
+#     return matches, np.array(unmatched_a), np.array(unmatched_b)
+
 
 def linear_assignment(cost_matrix, thresh):
     if cost_matrix.size == 0:
